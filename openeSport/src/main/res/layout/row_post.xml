@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_listview"
+	android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	android:paddingTop="@dimen/posts_list_margin"
+	android:paddingBottom="@dimen/posts_list_margin"
+	android:background="@drawable/button_list_view">
+
+	    <ImageView android:id="@+id/thumb"
+            android:layout_alignParentLeft="true"
+	        android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+			android:layout_marginLeft="4dp"
+            android:layout_marginRight="6dp"
+			android:padding="4dp"
+			/>
+		<LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/posts_right_margin"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/thumb"
+            android:orientation="vertical"
+            >
+
+            <TextView android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gen_darkest_grey"
+                android:textSize="@dimen/large_text"
+                />
+
+
+            <TextView android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gen_dark_grey"
+                android:textSize="@dimen/medium_text"
+                />
+
+        </LinearLayout>
+
+
+
+        <TextView android:id="@+id/date"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingRight="7dp"
+            android:textSize="@dimen/smaller_text"
+            android:textColor="@color/gen_light_grey"
+            />
+
+</RelativeLayout>

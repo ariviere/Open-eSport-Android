@@ -1,0 +1,6 @@
+<!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/pagerSlidingTab/src/main/AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.astuetz.viewpager.extensions">
+
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="8"/>
+
+</manifest>

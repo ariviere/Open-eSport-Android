@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <color name="pressed_openesport">#CCF9CF65</color>
+    <color name="red">#df0d0e</color>
+    <color name="grey">#373737</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="transp_black">#eed6d6d6</color>
+    <color name="black_light">#222222</color>
+    <color name="dark_grey">#262626</color>
+    <color name="grey_medium">#626262</color>
+    <color name="grey_light">#aaaaaa</color>
+    <color name="orange_lightest">#fff9cf65</color>
+    <color name="orange_light">#f98a39</color>
+    <color name="orange_dark">#eb3b23</color>
+    <color name="orange">#f0562a</color>  
+    <color name="grey_bg">#e3e2dc</color>
+    <color name="grey_border">#3f4552</color>
+    <color name="grey_lighter">#dcdcdc</color>
+    <color name="grey_header">#777d8c</color>
+    <color name="gen_darkest_plus_grey">#323232</color>
+    <color name="gen_darkest_grey">#474747</color>
+    <color name="gen_dark_grey">#606060</color>
+    <color name="gen_light_grey">#939393</color>
+    <color name="gen_lightest_grey">#adadad</color>
+    <color name="blue">#229bab</color>
+    <color name="blue_light">#20b2c6</color>
+    <color name="blue_darker">#0d393f</color>
+    <color name="blue_dark">#1e4a50</color>
+</resources>

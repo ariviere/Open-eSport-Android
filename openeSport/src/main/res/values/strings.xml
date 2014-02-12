@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Open eSport</string>
+    <string name="esfr">eSportsFrance</string>
+    <string name="tous">All</string>
+    <string name="accueil">Home</string>
+    <string name="info">Open eSport - v</string>
+    <string name="astuces">Tips</string>
+    <string name="teamliquid">TeamLiquid</string>
+    <string name="teamaaa">Team aAa</string>
+    <string name="ogaming">O\'Gaming</string>
+    <string name="ogaming_brut">O Gaming</string>
+    <string name="millenium">Millenium</string>
+    <string name="thunderbot">Thunderbot</string>
+    <string name="iewt">IEWT</string>
+    <string name="vakarm">VaKarM</string>
+    <string name="hltv">HLTV</string>
+    <string name="cadred">Cadred</string>
+    <string name="skgaming">SK Gaming</string>
+    <string name="ongamers">onGamers</string>
+    <string name="esreality">ESReality</string>
+    <string name="shoryuken">Shoryuken</string>
+    <string name="esportsheaven">Esports Heaven</string>
+    <string name="esportactu">Esport Actu</string>
+    <string name="esportsexpress">Esports Express</string>
+    <string name="dota2fr">dota2fr</string>
+    <string name="reddit">Reddit</string>
+    <string name="joindota">joinDOTA</string>
+    <string name="autres_jeux">The others</string>
+    <string name="websites">WEBSITE</string>
+    <string name="validate">Valider</string>
+    <string name="games">GAME</string>
+    <string name="other">OTHER</string>
+    <string name="all">All</string>
+    <string name="all_menu">All</string>
+    <string name="all_filter">All</string>
+    <string name="apropos">About</string>
+    <string name="auteur">Who am I</string>
+    <string name="actu">All the news</string>
+    <string name="apropos_text">Open eSport gathers news articles from the main esport websites. The list of it is available in the left panel. \n\nFull articles are available in the top bar when you are consulting the content. \n\nLogo by Stéphane Sanchez, games logos are owned by eSportsFrance.</string>    <string name="sc2">Starcraft II</string>
+    <string name="lol">LoL</string>
+    <string name="sm">ShootMania</string>
+    <string name="dota2">DOTA 2</string>
+    <string name="csgo">Counter Strike GO</string>
+    <string name="ql">QuakeLive</string>
+    <string name="versus">Versus Fighting</string>
+    <string name="hearthstone">HearthStone</string>
+    <string name="csgo_ab">CS:GO</string>
+    <string name="others">Other games</string>
+    <string name="w3">Warcraft III</string>
+    <string name="fifa">FIFA 12</string>
+    <string name="language">LANGUAGE</string>
+    <string name="articles">ARTICLES</string>
+    <string name="articles_min">Articles</string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="custom">Customized</string>
+    <string name="filtres">Filters</string>
+    <string name="tools">Settings</string>
+    <string name="infos">App Infos</string>
+    <string name="error_msg">Articles unavailable</string>
+    <string name="error_custom_msg">You haven\'t selected the websites you want yet.\n\nGo to the settings to do it now.</string>
+    <string name="last_update">Last update</string>
+    <string name="loading">Loading</string>
+    <string name="refresh">Refresh</string>
+    <string name="by">by</string>
+    <string name="by2">By</string>
+    <string name="day">d</string>
+    <string name="ago">ago.</string>
+    <string name="no_datas">No article found, try to change your research.</string>
+    <string name="error_network">Server unavailable. Check you connection and try again later.</string>
+    <string name="error_articles">No article found, try another category.</string>
+    <string name="error_custom">You need to configure this section in the settings. Click on the gears at the top-right of the screen.</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="activate_prefs">Custom category</string>
+    <string name="activate_prefs_description">Click to enable</string>
+    <string name="pref_filter_type">Type of filters</string>
+    <string name="pref_filter_type_summary">How to display articles</string>
+    <string name="pref_filter_type_lang">website</string>
+    <string name="games_pref_screen">Games</string>
+    <string name="websites_pref_screen">Websites</string>
+    <string name="new_version_title">New stuff :)</string>
+    <string name="new_version_desc">- Three new categories : HearthStone, Versus Fighting and Quake are available. They come with four new websites : Esport Actu, Esports Express, Shoryuken and ESReality.\nYou can now filter articles by games.\n\n- Open eSport web edition is LIVE, join us at www.openesport.com\n\n- DotA time ! joinDOTA and dota2fr are now available. Enjoy!\n\n- Three new websites are now available on Open eSport : onGamers, SK Gaming and Thunderbot.\n\n- You finally can read CS:GO\'s news from Reddit.</string>
+
+    <string-array name="pref_filter_type_entries">
+        <item>By game</item>
+        <item>By language</item>
+    </string-array>
+
+    <string-array name="pref_filter_type_values">
+        <item>website</item>
+        <item>game</item>
+    </string-array>
+</resources>
