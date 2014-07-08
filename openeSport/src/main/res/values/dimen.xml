@@ -27,6 +27,10 @@
     <dimen name="large_title">20dp</dimen>
     <dimen name="nav_drawer_width">180dp</dimen>
 
+    <dimen name="small_space">4dp</dimen>
+
+    <dimen name="filter_games_height">44dp</dimen>
+
     <dimen name="nav_drawer_item_padding_left">12dp</dimen>
     <dimen name="nav_drawer_item_padding_top">8dp</dimen>
     <dimen name="nav_drawer_header_padding_top">10dp</dimen>
@@ -34,6 +38,6 @@
     <dimen name="nav_drawer_header_padding_left">7dp</dimen>
 
     <dimen name="posts_right_margin">30dp</dimen>
-    <dimen name="posts_list_margin">4dp</dimen>
+    <dimen name="posts_list_margin">8dp</dimen>
     <dimen name="posts_list_divider_margin">5dp</dimen>
 </resources>

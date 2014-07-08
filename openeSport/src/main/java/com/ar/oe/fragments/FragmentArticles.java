@@ -4,15 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import com.ar.oe.R;
 import com.ar.oe.activities.ActivityArticle;
+import com.ar.oe.activities.ActivityHome;
 import com.ar.oe.adapters.AdapterArticles;
 import com.ar.oe.classes.Post;
 import com.ar.oe.utils.CustomComparator;
@@ -20,13 +22,12 @@ import com.ar.oe.utils.CustomComparator;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-public class FragmentArticles extends Fragment {
+public class FragmentArticles extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final String ARG_POSITION = "position";
     private String type;
     private ArrayList<Post> posts = new ArrayList<Post>();
     Context context;
-    ListView articlesListView;
+    GridView articlesListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,9 +35,9 @@ public class FragmentArticles extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_game, container, false);
         context = container.getContext();
         posts = (ArrayList<Post>) getArguments().getSerializable("posts");
-        type = (String) getArguments().getString("type");
+        type = getArguments().getString("type");
         if(posts.size() != 0){
-            articlesListView = (ListView)rootView.findViewById(R.id.list_view_articles);
+            articlesListView = (GridView)rootView.findViewById(R.id.list_view_articles);
             Collections.sort(posts, new CustomComparator());
             articlesListView.setAdapter(new AdapterArticles(context, posts, type));
 
@@ -49,9 +50,22 @@ public class FragmentArticles extends Fragment {
                 }
             });
         }
+
+        SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+        swipeLayout.setColorScheme(R.color.lol_color,
+                R.color.sc2_color,
+                R.color.dota2_color,
+                R.color.csgo_color);
+
         return rootView;
     }
 
+    @Override
+    public void onRefresh() {
+        ((ActivityHome) getActivity()).new loadArticles().execute(context);
+        ((ActivityHome) getActivity()).startRefresh();
+    }
     public FragmentArticles(){
     }
 

@@ -1,0 +1,128 @@
+[
+    {
+        "name": "O Gaming",
+        "id": "ogaming",
+        "lang": "fr",
+        "enabled": true
+    },
+    {
+        "name": "Team aAa",
+        "id": "teamaaa",
+        "lang": "fr",
+        "enabled": true
+    },
+    {
+        "name": "Millenium",
+        "id": "millenium",
+        "lang": "fr",
+        "enabled": true
+    }, 
+    {
+        "name": "Esport Actu",
+        "id": "esportactu",
+        "lang": "fr",
+        "enabled": true
+    },
+    {
+        "name": "Thunderbot",
+        "id": "thunderbot",
+        "lang": "fr",
+        "enabled": true
+    }, 
+    {
+        "name": "IEWT",
+        "id": "iewt",
+        "lang": "fr",
+        "enabled": true
+    }, 
+    {
+        "name": "VaKarM",
+        "id": "vakarm",
+        "lang": "fr",
+        "enabled": true
+    }, 
+    {
+        "name": "dota2fr",
+        "id": "dota2fr",
+        "lang": "fr",
+        "enabled": true
+    }, 
+    {
+        "name": "Reddit",
+        "id": "reddit",
+        "lang": "en",
+        "enabled": false
+    }, 
+    {
+        "name": "onGamers",
+        "id": "ongamers",
+        "lang": "en",
+        "enabled": true 
+    }, 
+    {
+        "name": "Esports Heaven",
+        "id": "esportsheaven",
+        "lang": "en",
+        "enabled": true
+    },
+    {
+        "name": "SK Gaming",
+        "id": "skgaming",
+        "lang": "en",
+        "enabled": true 
+    }, 
+    {
+        "name": "HLTV",
+        "id": "hltv",
+        "lang": "en",
+        "enabled": true 
+    }, 
+    {
+        "name": "TeamLiquid",
+        "id": "teamliquid",
+        "lang": "en",
+        "enabled": true 
+    },
+    {
+        "name": "joinDOTA",
+        "id": "joindota",
+        "lang": "en",
+        "enabled": true 
+    },
+    {
+        "name": "Esports Express",
+        "id": "esportsexpress",
+        "lang": "en",
+        "enabled": true
+    },
+    {
+        "name": "Shoryuken",
+        "id": "shoryuken",
+        "lang": "en",
+        "enabled": true
+    },
+    {
+        "name": "ESReality",
+        "id": "esreality",
+        "lang": "en",
+        "enabled": true
+    },
+    {
+        "name": "LiquidHearth",
+        "id": "liquidhearth",
+        "lang": "en",
+        "enabled": true
+    },
+    {
+        "name": "Cloth5",
+        "id": "cloth5",
+        "lang": "en",
+        "enabled": true
+    },
+     {
+         "name": "GosuGamers",
+         "id": "gosugamers",
+         "lang": "en",
+         "enabled": true
+     }
+]

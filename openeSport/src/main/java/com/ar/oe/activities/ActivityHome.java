@@ -1,21 +1,18 @@
 package com.ar.oe.activities;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,22 +27,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ar.oe.R;
-import com.ar.oe.classes.DrawerItem;
+import com.ar.oe.classes.Category;
+import com.ar.oe.workers.DataService;
 import com.ar.oe.classes.Post;
 import com.ar.oe.adapters.DrawerAdapter;
 import com.ar.oe.drawer.DrawerHeaderItem;
 import com.ar.oe.drawer.DrawerItemInterface;
 import com.ar.oe.drawer.DrawerListItem;
 import com.ar.oe.fragments.FragmentSection;
-import com.ar.oe.utils.AppDatas;
 import com.ar.oe.utils.DatabaseActions;
 import com.ar.oe.utils.DateParsing;
+import com.ar.oe.utils.JSONFilesManager;
 import com.ar.oe.utils.JSONParsing;
 import com.ar.oe.utils.RandomNumber;
-import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
-import com.google.ads.InterstitialAd;
+import com.foxykeep.datadroid.activity.generic.GenericDataActivityCompat;
 import com.google.analytics.tracking.android.EasyTracker;
 
 import org.json.JSONArray;
@@ -53,9 +48,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityHome extends ActionBarActivity implements AdListener {
-    private InterstitialAd interstitial;
+public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_TYPE> {
     private String TAG = "Main activity";
+    private final static String SERVER_URL = "http://openesport.herokuapp.com/posts/web";
     private Context context;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -64,17 +59,15 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
     private LinearLayout errorLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerAdapter mMenuAdapter;
-    private ArrayList<DrawerItem> drawerItems;
-    private ArrayList<Fragment> fragments;
+    private ArrayList<Category> categories;
     private List<DrawerItemInterface> items;
     private MenuItem refreshItem, settingsItem;
     private boolean refreshing;
-    private String language;
     private int currentMenuItem;
     private boolean error = false, crashed = false;
     private Bundle savedState;
-    private String[] userSave;
-    SharedPreferences sharedPref;
+    private FragmentSection fragmentSection;
+    private SharedPreferences sharedPref;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,11 +77,8 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
         context = this;
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        showNewVersionMsg();
-
         savedState = savedInstanceState;
 
-        //getGraphicElements
         splashImg = (ImageView)findViewById(R.id.splash_img);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -96,49 +86,64 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
         errorImg = (ImageView) findViewById(R.id.error_img);
         errorText = (TextView) findViewById(R.id.error_text);
 
-        loadGoogleAd();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        setLanguageConfig();
-
+        if(savedState == null){
+            showSplashImg();
+            new loadArticles().execute(context);
+        }else{
+            error = savedState.getBoolean("error");
+            crashed = savedState.getBoolean("crashed");
+            showDatas();
+        }
 	}
+
+    private void launchPrefScreen(){
+        if(!sharedPref.getBoolean("pref_saved", false)){
+            Intent intent_tools = new Intent(context, ActivityPreferences.class);
+            intent_tools.putExtra("first_launch", true);
+            startActivityForResult(intent_tools, 1);
+        }
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("menu_items", drawerItems);
+        outState.putSerializable("menu_items", categories);
         outState.putSerializable("error", error);
         outState.putSerializable("crashed", crashed);
     }
 
-    public ArrayList<Fragment> getFragments(){
-        ArrayList<Fragment> fragments = new ArrayList<Fragment>();
-        for(DrawerItem item : drawerItems){
-            if(item.getType().equals("game"))
-                fragments.add(FragmentSection.newInstance("game", item.getIcon()));
-            else
-                fragments.add(FragmentSection.newInstance("website", item.getIcon()));
-
-        }
-        return fragments;
+    @Override
+    protected DataService.WORKER_TYPE getWorkerTypeByOrdinal(int ordinal) {
+        return DataService.WORKER_TYPE.values()[ordinal];
     }
 
     private void initDrawer(){
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
         if(savedState != null && !crashed)
-            drawerItems = (ArrayList<DrawerItem>)savedState.getSerializable("menu_items");
-        if(drawerItems == null)
-            drawerItems = new AppDatas().getMenuItems(context);
+            categories = (ArrayList<Category>)savedState.getSerializable("menu_items");
+        if(categories == null){
+            categories = new ArrayList<Category>();
+            categories.add(new Category(context.getResources().getString(R.string.home), "oe_menu", "all"));
+
+            categories.add(new Category(context.getResources().getString(R.string.games), null, "header"));
+            categories.addAll(JSONFilesManager.getCategoriesList(context, "game"));
+            categories.remove(categories.size()-1);
+
+            categories.add(new Category(context.getResources().getString(R.string.websites), null, "header"));
+            categories.addAll(JSONFilesManager.getCategoriesList(context, "website"));
+        }
 
         items = new ArrayList<DrawerItemInterface>();
 
 
-        for(DrawerItem drawerItem : drawerItems){
-            if(drawerItem.getType().equals("header"))
-                items.add(new DrawerHeaderItem(drawerItem.getName()));
+        for(Category category : categories){
+            if(category.getType().equals("header"))
+                items.add(new DrawerHeaderItem(category.getName()));
             else
-                items.add(new DrawerListItem(drawerItem.getName(), drawerItem.getIcon()));
+                items.add(new DrawerListItem(category.getName(), category.getIcon()));
         }
 
 
@@ -161,22 +166,17 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        fragments = getFragments();
 
+        mMenuAdapter = new DrawerAdapter(context, items);
 
-//        }else{
-            // Pass results to MenuListAdapter Class
-            mMenuAdapter = new DrawerAdapter(context, items);
+        mDrawerList.setAdapter(mMenuAdapter);
 
-            // Set the MenuListAdapter to the ListView
-            mDrawerList.setAdapter(mMenuAdapter);
-
-            // Capture button clicks on side menu
-            mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-//        }
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
     private void showDatas(){
+        launchPrefScreen();
+
         if(!error){
             if(crashed){
                 settingsItem.setVisible(true);
@@ -184,17 +184,9 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
                 errorLayout.setVisibility(View.GONE);
                 errorImg.setVisibility(View.GONE);
                 errorText.setVisibility(View.GONE);
-                initDrawer();
             }
 
-            if(refreshing){
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, FragmentSection.newInstance(drawerItems.get(currentMenuItem).getName(), drawerItems.get(currentMenuItem).getIcon()));
-                ft.commitAllowingStateLoss();
-            }
-            else{
-                initDrawer();
-            }
+            initDrawer();
 
             mMenuAdapter.notifyDataSetChanged();
             mDrawerList.setAdapter(mMenuAdapter);
@@ -222,21 +214,8 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
         if(refreshing) {
             stopRefresh();
         }
-        if(savedState == null && !crashed)
-            selectItem(currentMenuItem);
-    }
-
-    private void setLanguageConfig(){
-        //Setting language and default source to show (all webistes EN or FR)
-        if(sharedPref.getBoolean("activate_prefs", false))
-            currentMenuItem = 1;
-        else{
-            language = getApplicationContext().getResources().getConfiguration().locale.getLanguage();
-            currentMenuItem = 4;
-            if(language.equals("fr"))
-                currentMenuItem = 3;
-        }
-
+        if(!crashed)
+            selectItem(0);
     }
 
     @Override
@@ -250,15 +229,6 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
     public boolean onPrepareOptionsMenu(Menu menu){
         refreshItem = menu.findItem(R.id.item_refresh);
         settingsItem = menu.findItem(R.id.item_settings);
-
-        if(savedState == null){
-            showSplashImg();
-            new loadArticles().execute(context);
-        }else{
-            error = savedState.getBoolean("error");
-            crashed = savedState.getBoolean("crashed");
-            showDatas();
-        }
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -279,12 +249,10 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
             startRefresh();
             //Launching data load
             new loadArticles().execute(context);
-            refreshing = true;
             break;
 
         case(R.id.item_settings):
             Intent intent_tools = new Intent(context, ActivityPreferences.class);
-            intent_tools.putExtra("userSave", userSave);
             startActivityForResult(intent_tools, 1);
             break;
 		}
@@ -293,6 +261,7 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
 	}
 
     public void startRefresh() {
+        refreshing = true;
         LayoutInflater inflater = (LayoutInflater) getApplication()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView iv = (ImageView) inflater.inflate(R.layout.action_refresh,
@@ -302,12 +271,22 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
                 R.anim.refresh_rotate);
         rotation.setRepeatCount(Animation.INFINITE);
         iv.startAnimation(rotation);
-        refreshItem.setActionView(iv);
+        MenuItemCompat.setActionView(refreshItem, iv);
     }
 
     public void stopRefresh(){
-        refreshItem.getActionView().clearAnimation();
-        refreshItem.setActionView(null);
+        MenuItemCompat.getActionView(refreshItem).clearAnimation();
+        MenuItemCompat.setActionView(refreshItem, null);
+    }
+
+    @Override
+    public void onRequestFinishedSuccess(DataService.WORKER_TYPE workerType, Bundle payload) {
+
+    }
+
+    @Override
+    public void onRequestFinishedError(DataService.WORKER_TYPE workerType, Bundle payload) {
+
     }
 
     // The click listener for ListView in the navigation drawer
@@ -323,39 +302,30 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
     private void showSplashImg(){
         splashImg.setVisibility(View.VISIBLE);
         mDrawerLayout.setVisibility(View.GONE);
-        getActionBar().hide();
+        getSupportActionBar().hide();
     }
 
     private void hideSplashImg(){
         splashImg.setVisibility(View.GONE);
         mDrawerLayout.setVisibility(View.VISIBLE);
-        getActionBar().show();
+        getSupportActionBar().show();
     }
 
 	private void selectItem(int position) {
         currentMenuItem = position;
-        if(position == 1 && !sharedPref.getBoolean("activate_prefs", false)){
-                showAlertDialog(context.getResources().getString(R.string.error_custom));
-        }
-        else if(position == 1 && sharedPref.getBoolean("activate_prefs", false)){
+        if(position > 1 && position < 9){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, FragmentSection.newInstance(sharedPref.getString("filter_type", "game"), drawerItems.get(position).getIcon()));
-            ft.commitAllowingStateLoss();
+            fragmentSection = FragmentSection.newInstance("game", categories.get(position).getIcon());
+            ft.replace(R.id.content_frame, fragmentSection, "articlesFragment");
+            ft.commit();
             mDrawerList.setItemChecked(position, true);
-        }
-        else if(position > 5 && position < 13){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, FragmentSection.newInstance("game", drawerItems.get(position).getIcon()));
-            ft.commitAllowingStateLoss();
-            mDrawerList.setItemChecked(position, true);
-            // Close drawer
         }
         else{
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, FragmentSection.newInstance("website", drawerItems.get(position).getIcon()));
-            ft.commitAllowingStateLoss();
+            fragmentSection = FragmentSection.newInstance("website", categories.get(position).getIcon());
+            ft.replace(R.id.content_frame, fragmentSection, "articlesFragment");
+            ft.commit();
             mDrawerList.setItemChecked(position, true);
-            // Close drawer
         }
         mDrawerLayout.closeDrawer(mDrawerList);
 	}
@@ -378,7 +348,7 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
             JSONArray jsonRss = null;
 
             try{
-                jsonRss = jTools.getJSONfromURL("http://openesport.jit.su/posts/web");
+                jsonRss = jTools.getJSONfromURL(SERVER_URL);
             }catch(Exception e){
                 error = true;
                 return null;
@@ -393,7 +363,6 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
                     post.setAuthor(jsonRss.getJSONObject(i).getString("author"));
                     post.setThumbnail(jsonRss.getJSONObject(i).getString("category"));
                     post.setLanguage(jsonRss.getJSONObject(i).getString("language"));
-//                    post.setPubDate(tb.getSeconds(jsonRss.getJSONObject(i).getString("pubDate")));
                     post.setPubDate(jsonRss.getJSONObject(i).getString("pubDate"));
                     post.setUrl(jsonRss.getJSONObject(i).getString("link"));
                     posts.add(post);
@@ -417,102 +386,18 @@ public class ActivityHome extends ActionBarActivity implements AdListener {
         }
     }
 
-    private void loadGoogleAd(){
-        // Create the interstitial
-        interstitial = new InterstitialAd(this, "ca-app-pub-4132391279379480/2817848124");
-
-        // Create ad request
-        AdRequest adRequest = new AdRequest();
-
-        // Begin loading your interstitial
-        interstitial.loadAd(adRequest);
-
-        // Set Ad Listener to use the callbacks below
-        interstitial.setAdListener(this);
-    }
-
-    //Ads management
-    @Override
-    public void onReceiveAd(Ad ad) {
-        if (ad == interstitial) {
-            interstitial.show();
-        }
-    }
-
-    @Override
-    public void onFailedToReceiveAd(Ad ad, AdRequest.ErrorCode errorCode) {
-
-    }
-
-    @Override
-    public void onPresentScreen(Ad ad) {
-
-    }
-
-    @Override
-    public void onDismissScreen(Ad ad) {
-
-    }
-
-    @Override
-    public void onLeaveApplication(Ad ad) {
-
-    }
-
-    private void showNewVersionMsg(){
-        try {
-            SharedPreferences userPref = getSharedPreferences("USER", 0);
-            String versionName = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), 0).versionName;
-            if(userPref.getBoolean("maj_infos21", true)){
-                showAlertDialogWithTitle(context.getResources().getString(R.string.new_version_title), context.getResources().getString(R.string.new_version_desc));
-                SharedPreferences.Editor editor = userPref.edit();
-                editor.putBoolean("maj_infos21", false);
-                editor.commit();
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showAlertDialog(String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void showAlertDialogWithTitle(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-                .setTitle(title)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                if(sharedPref.getBoolean("activate_prefs", false)){
-                    currentMenuItem = 1;
-                    startRefresh();
-                    refreshing = true;
-                    showDatas();
-                }
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean("pref_saved", true);
+                editor.commit();
+
+                currentMenuItem = 0;
+                startRefresh();
+                showDatas();
             }
         }
     }

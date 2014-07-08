@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.ar.oe.classes.Post;
-import com.ar.oe.utils.AppDatas;
 import com.ar.oe.utils.DateParsing;
 import com.ar.oe.R;
+import com.ar.oe.utils.JSONFilesManager;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -50,7 +50,7 @@ public class AdapterArticles extends BaseAdapter{
 
 		//Graphic elements init
 		if (convertView == null) {
-			vi = inflater.inflate(R.layout.row_post, null);
+			vi = inflater.inflate(R.layout.row_post, parent, false);
 			holder = new ViewHolder();
 			holder.label = (TextView) vi.findViewById(R.id.title);
 			holder.author = (TextView) vi.findViewById(R.id.author);
@@ -79,7 +79,7 @@ public class AdapterArticles extends BaseAdapter{
 		//Show image
         int resID;
         if(iconType.equals("game")){
-            Map<String, String> websitesIcons = new AppDatas().getWebsitesIcons(activity);
+            Map<String, String> websitesIcons = new JSONFilesManager().getCategoriesMap(activity, "website");
             String websiteName = websitesIcons.get(data.get(position).getWebsite()) != null ? websitesIcons.get(data.get(position).getWebsite()) : "other";
 		    resID = activity.getApplicationContext().getResources().getIdentifier(websiteName, "drawable", activity.getApplicationContext().getPackageName());
         }

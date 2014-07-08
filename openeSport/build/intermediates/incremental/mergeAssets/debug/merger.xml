@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="19.1.0" >
+        <source path="/Users/ariviere/Documents/Android/OpeneSportNew/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/assets" />
+    </dataSet>
+    <dataSet config="unspecified" >
+        <source path="/Users/ariviere/Documents/Android/OpeneSportNew/build/intermediates/exploded-aar/OpeneSportNew/DataDroid/unspecified/assets" />
+    </dataSet>
+    <dataSet config="unspecified" >
+        <source path="/Users/ariviere/Documents/Android/OpeneSportNew/build/intermediates/exploded-aar/OpeneSportNew/DataDroidCompat/unspecified/assets" />
+    </dataSet>
+    <dataSet config="unspecified" >
+        <source path="/Users/ariviere/Documents/Android/OpeneSportNew/build/intermediates/exploded-aar/OpeneSportNew/pagerSlidingTab/unspecified/assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/debug/assets" />
+    </dataSet>
+
+</merger>

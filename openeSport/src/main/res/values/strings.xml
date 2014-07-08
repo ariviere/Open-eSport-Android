@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Open eSport</string>
-    <string name="esfr">eSportsFrance</string>
+    <string name="home">Home</string>
     <string name="tous">All</string>
     <string name="accueil">Home</string>
     <string name="info">Open eSport - v</string>
@@ -37,7 +37,8 @@
     <string name="apropos">About</string>
     <string name="auteur">Who am I</string>
     <string name="actu">All the news</string>
-    <string name="apropos_text">Open eSport gathers news articles from the main esport websites. The list of it is available in the left panel. \n\nFull articles are available in the top bar when you are consulting the content. \n\nLogo by Stéphane Sanchez, games logos are owned by eSportsFrance.</string>    <string name="sc2">Starcraft II</string>
+    <string name="apropos_text">Open eSport gathers news articles from the main esport websites. The list of it is available in the left panel. \n\nFull articles are available in the top bar when you are consulting the content. \n\nLogo by Stéphane Sanchez, games logos are owned by eSportsFrance.</string>
+    <string name="sc2">Starcraft II</string>
     <string name="lol">LoL</string>
     <string name="sm">ShootMania</string>
     <string name="dota2">DOTA 2</string>
@@ -82,6 +83,7 @@
     <string name="websites_pref_screen">Websites</string>
     <string name="new_version_title">New stuff :)</string>
     <string name="new_version_desc">- Three new categories : HearthStone, Versus Fighting and Quake are available. They come with four new websites : Esport Actu, Esports Express, Shoryuken and ESReality.\nYou can now filter articles by games.\n\n- Open eSport web edition is LIVE, join us at www.openesport.com\n\n- DotA time ! joinDOTA and dota2fr are now available. Enjoy!\n\n- Three new websites are now available on Open eSport : onGamers, SK Gaming and Thunderbot.\n\n- You finally can read CS:GO\'s news from Reddit.</string>
+    <string name="first_time_prefs">Welcome to Open eSport. Pick your favorite games and language before beginning reading the news.\n\nYou can come back to the settings later by selecting the gears icon at the top right of the screen.</string>
 
     <string-array name="pref_filter_type_entries">
         <item>By game</item>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="GridViewArticles">
+        <item name="android:numColumns">1</item>
+    </style>
+
+    <style name="SwipeLayout">
+        <item name="android:paddingLeft">80dip</item>
+        <item name="android:paddingRight">80dip</item>
+    </style>
+</resources>

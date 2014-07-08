@@ -1,185 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/games_pref_screen" />
     <CheckBoxPreference
-        android:key="activate_prefs"
-        android:title="@string/activate_prefs"
-        android:summary="@string/activate_prefs_description"
-        android:defaultValue="false" />
-    <PreferenceScreen
-        android:dependency="activate_prefs"
-        android:key="games_pref_screen"
-        android:title="@string/games_pref_screen"
-        android:persistent="false">
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="lol"
-            android:title="@string/lol"
-            android:icon="@drawable/lol"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="sc2"
-            android:title="@string/sc2"
-            android:icon="@drawable/sc2"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="dota2"
-            android:title="@string/dota2"
-            android:icon="@drawable/dota2"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="csgo"
-            android:title="@string/csgo"
-            android:icon="@drawable/csgo"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="ql"
-            android:title="@string/ql"
-            android:icon="@drawable/ql"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="versus"
-            android:title="@string/versus"
-            android:icon="@drawable/versus"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="hearthstone"
-            android:title="@string/hearthstone"
-            android:icon="@drawable/hearthstone"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="others"
-            android:title="@string/others"
-            android:icon="@drawable/other"
-            android:defaultValue="true" />
-    </PreferenceScreen>
-    <PreferenceScreen
-        android:dependency="activate_prefs"
-        android:key="websites_pref_screen"
-        android:title="@string/websites_pref_screen"
-        android:persistent="false">
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="ogaming"
-            android:title="@string/ogaming"
-            android:icon="@drawable/ogaming"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="teamaaa"
-            android:title="@string/teamaaa"
-            android:icon="@drawable/teamaaa"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="millenium"
-            android:title="@string/millenium"
-            android:icon="@drawable/millenium"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="esportactu"
-            android:title="@string/esportactu"
-            android:icon="@drawable/esportactu"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="thunderbot"
-            android:title="@string/thunderbot"
-            android:icon="@drawable/thunderbot"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="vakarm"
-            android:title="@string/vakarm"
-            android:icon="@drawable/vakarm"
-            android:defaultValue="false" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="dota2fr"
-            android:title="@string/dota2fr"
-            android:icon="@drawable/dota2fr"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="iewt"
-            android:title="@string/iewt"
-            android:icon="@drawable/iewt"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="reddit"
-            android:title="@string/reddit"
-            android:icon="@drawable/reddit"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="ongamers"
-            android:title="@string/ongamers"
-            android:icon="@drawable/ongamers"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="esportsheaven"
-            android:title="@string/esportsheaven"
-            android:icon="@drawable/esportsheaven"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="skgaming"
-            android:title="@string/skgaming"
-            android:icon="@drawable/skgaming"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="teamliquid"
-            android:title="@string/teamliquid"
-            android:icon="@drawable/teamliquid"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="hltv"
-            android:title="@string/hltv"
-            android:icon="@drawable/hltv"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="joindota"
-            android:title="@string/joindota"
-            android:icon="@drawable/joindota"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="esportsexpress"
-            android:title="@string/esportsexpress"
-            android:icon="@drawable/esportsexpress"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="shoryuken"
-            android:title="@string/shoryuken"
-            android:icon="@drawable/shoryuken"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:dependency="activate_prefs"
-            android:key="esreality"
-            android:title="@string/esreality"
-            android:icon="@drawable/esreality"
-            android:defaultValue="true" />
-    </PreferenceScreen>
-    <ListPreference
-        android:dependency="activate_prefs"
-        android:key="filter_type"
-        android:title="@string/pref_filter_type"
-        android:summary="@string/pref_filter_type_summary"
-        android:dialogTitle="@string/pref_filter_type"
-        android:entries="@array/pref_filter_type_entries"
-        android:entryValues="@array/pref_filter_type_values"
-        android:defaultValue="@string/pref_filter_type_lang" />
+        android:defaultValue="true"
+        android:icon="@drawable/lol"
+        android:key="lol"
+        android:title="@string/lol" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/sc2"
+        android:key="sc2"
+        android:title="@string/sc2" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/dota2"
+        android:key="dota2"
+        android:title="@string/dota2" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/csgo"
+        android:key="csgo"
+        android:title="@string/csgo" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ql"
+        android:key="ql"
+        android:title="@string/ql" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/versus"
+        android:key="versus"
+        android:title="@string/versus" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/hearthstone"
+        android:key="hearthstone"
+        android:title="@string/hearthstone" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/other"
+        android:key="other"
+        android:title="@string/others" />
+    <PreferenceCategory android:title="@string/language" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/fr"
+        android:key="fr"
+        android:title="@string/french" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/en"
+        android:key="en"
+        android:title="@string/english" />
+    <PreferenceCategory android:title="@string/websites_pref_screen" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ogaming"
+        android:key="ogaming"
+        android:title="@string/ogaming" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/teamaaa"
+        android:key="teamaaa"
+        android:title="@string/teamaaa" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/millenium"
+        android:key="millenium"
+        android:title="@string/millenium" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/esportactu"
+        android:key="esportactu"
+        android:title="@string/esportactu" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/thunderbot"
+        android:key="thunderbot"
+        android:title="@string/thunderbot" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/vakarm"
+        android:key="vakarm"
+        android:title="@string/vakarm" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/dota2fr"
+        android:key="dota2fr"
+        android:title="@string/dota2fr" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/iewt"
+        android:key="iewt"
+        android:title="@string/iewt" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/reddit"
+        android:key="reddit"
+        android:title="@string/reddit" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ongamers"
+        android:key="ongamers"
+        android:title="@string/ongamers" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/esportsheaven"
+        android:key="esportsheaven"
+        android:title="@string/esportsheaven" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/skgaming"
+        android:key="skgaming"
+        android:title="@string/skgaming" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/teamliquid"
+        android:key="teamliquid"
+        android:title="@string/teamliquid" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/hltv"
+        android:key="hltv"
+        android:title="@string/hltv" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/joindota"
+        android:key="joindota"
+        android:title="@string/joindota" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/esportsexpress"
+        android:key="esportsexpress"
+        android:title="@string/esportsexpress" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/shoryuken"
+        android:key="shoryuken"
+        android:title="@string/shoryuken" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:icon="@drawable/esreality"
+        android:key="esreality"
+        android:title="@string/esreality" />
 </PreferenceScreen>

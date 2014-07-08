@@ -45,7 +45,7 @@ public class DrawerListItem implements DrawerItemInterface {
 		txtTitle.setText(title);
 
 		// Set the results into ImageView
-        int iconImg = inflater.getContext().getResources().getIdentifier(img, "drawable", inflater.getContext().getPackageName());
+        int iconImg = inflater.getContext().getResources().getIdentifier(img + "_drawer", "drawable", inflater.getContext().getPackageName());
 		imgIcon.setImageResource(iconImg);
 
         return view;

@@ -71,8 +71,5 @@
     <string name="websites_pref_screen">Sites web</string>
     <string name="new_version_title">Des nouveautés :)</string>
     <string name="new_version_desc">- Trois nouvelles catégories : HearthStone, Quake et Versus Fighting font leur apparition. Et avec elle, 4 nouveaux sites arrivent : Esport Actu, Esports Express, Shoryuken et ESReality.\nDes catégories par jeu sont disponibles dans le menu.\n\n- Open eSport version web est en ligne, rejoignez-nous sur www.openesport.com\n\n- DotA time ! joinDOTA et dota2fr sont désormais disponibles. Enjoy!\n\n- Trois nouveaux sites débarquent sur Open eSport : onGamers, SK Gaming et Thunderbot.\n\n- Vous avez maintenant accès aux articles CS:GO de Reddit.</string>
-    <string-array name="pref_filter_type_entries">
-        <item>Par jeu</item>
-        <item>Par langage</item>
-    </string-array>
+    <string name="first_time_prefs">Bienvenue sur Open eSport. Choisissez vos jeux favoris et les langues que vous voulez voir apparaitre dans le fil d\'actualité.\n\nVous pourrez revenir aux paramètres plus tard en sélectionnant l\'icone d\'engrenage en haut à droite de l\'écran.</string>
 </resources>

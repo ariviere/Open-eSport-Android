@@ -1,0 +1,12 @@
+[
+    {
+        "name":"french",
+        "id":"fr",
+        "enabled": true
+    },
+    {
+        "name":"english",
+        "id":"en",
+        "enabled": true
+    }
+]

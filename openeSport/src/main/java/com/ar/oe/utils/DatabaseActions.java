@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ar.oe.classes.Category;
 import com.ar.oe.classes.Post;
 
 import java.util.ArrayList;
@@ -19,9 +20,8 @@ public class DatabaseActions extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "openesport.db";
     private static DatabaseSettings dc = new DatabaseSettings();
 
-
     public DatabaseActions(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DatabaseActions extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<Post> readDb(String category){
+    public ArrayList<Post> readDb(Context context, String category){
 
         ArrayList<Post> posts = new ArrayList<Post>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -76,7 +76,7 @@ public class DatabaseActions extends SQLiteOpenHelper {
                 DatabaseSettings.colDate + " DESC";
 
         Cursor cursor = null;
-        if(category.equals("oe_menu_drawer")) {
+        if(category.equals("oe_menu")) {
             cursor = db.query(
                     DatabaseSettings.postsTable,  // The table to query
                     projection,                               // The columns to return
@@ -93,122 +93,22 @@ public class DatabaseActions extends SQLiteOpenHelper {
             String whereColumn = null;
             String whereValue = null;
 
-            if(category.equals("fr")){
-                whereColumn = DatabaseSettings.colLanguage;
-                whereValue = category;
+            ArrayList<Category> gamesList = JSONFilesManager.getCategoriesList(context, "game");
+
+            for(Category game : gamesList){
+                if(game.getIcon().equals(category)){
+                    whereColumn = DatabaseSettings.colCategory;
+                    whereValue = category;
+                }
             }
-            else if(category.equals("en")){
-                whereColumn = DatabaseSettings.colLanguage;
-                whereValue = category;
+            ArrayList<Category> websitesList = JSONFilesManager.getCategoriesList(context, "website");
+            for(Category website : websitesList){
+                if(website.getIcon().equals(category)){
+                    whereColumn = DatabaseSettings.colWebsite;
+                    whereValue = website.getName();
+                }
             }
-            else if(category.equals("lol")){
-                whereColumn = DatabaseSettings.colCategory;
-                whereValue = "lol";
-            }
-            else if(category.equals("sc2")){
-                whereColumn = DatabaseSettings.colCategory;
-                whereValue = "sc2";
-            }
-            else if(category.equals("dota2")){
-                whereColumn = DatabaseSettings.colCategory;
-                whereValue = "dota2";
-            }
-            else if(category.equals("csgo")){
-                whereColumn = DatabaseSettings.colCategory;
-                whereValue = "csgo";
-            }
-            else if(category.equals("versus")){
-                whereColumn = DatabaseSettings.colCategory;
-                whereValue = "versus";
-            }
-            else if(category.equals("ql")){
-                whereColumn = DatabaseSettings.colCategory;
-                whereValue = "ql";
-            }
-            else if(category.equals("hearthstone")){
-                whereColumn = DatabaseSettings.colCategory;
-                whereValue = "hearthstone";
-            }
-            else if(category.equals("esportsfrance")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "eSportsFrance";
-            }
-            else if(category.equals("esportsfrance")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "eSportsFrance";
-            }
-            else if(category.equals("teamaaa")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Team aAa";
-            }
-            else if(category.equals("millenium")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Millenium";
-            }
-            else if(category.equals("esportactu")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Esport Actu";
-            }
-            else if(category.equals("vakarm")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "VaKarM";
-            }
-            else if(category.equals("thunderbot")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Thunderbot";
-            }
-            else if(category.equals("dota2fr")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "dota2fr";
-            }
-            else if(category.equals("iewt")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "IEWT";
-            }
-            else if(category.equals("ogaming")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "O Gaming";
-            }
-            else if(category.equals("reddit")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Reddit";
-            }
-            else if(category.equals("ongamers")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "onGamers";
-            }
-            else if(category.equals("esportsheaven")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Esports Heaven";
-            }
-            else if(category.equals("skgaming")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "SK Gaming";
-            }
-            else if(category.equals("hltv")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "HLTV";
-            }
-            else if(category.equals("teamliquid")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "TeamLiquid";
-            }
-            else if(category.equals("joindota")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "joinDOTA";
-            }
-            else if(category.equals("esportsexpress")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Esports Express";
-            }
-            else if(category.equals("shoryuken")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "Shoryuken";
-            }
-            else if(category.equals("esreality")){
-                whereColumn = DatabaseSettings.colWebsite;
-                whereValue = "ESReality";
-            }
+
             cursor = db.query(
                     DatabaseSettings.postsTable,  // The table to query
                     projection,                               // The columns to return
@@ -219,8 +119,6 @@ public class DatabaseActions extends SQLiteOpenHelper {
                     sortOrder                                 // The sort order
             );
         }
-
-
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -242,6 +140,8 @@ public class DatabaseActions extends SQLiteOpenHelper {
             posts.add(post);
             cursor.moveToNext();
         }
+
+
 
         return posts;
     }

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ar.oe.R;
+import com.ar.oe.classes.Category;
 import com.ar.oe.classes.Post;
 import com.ar.oe.classes.Stream;
-import com.ar.oe.utils.AppDatas;
 import com.ar.oe.utils.CustomPosts;
 import com.ar.oe.utils.DatabaseActions;
+import com.ar.oe.utils.JSONFilesManager;
 import com.ar.oe.utils.JSONTwitchParsing;
 import com.ar.oe.utils.RandomNumber;
 import com.astuetz.viewpager.extensions.PagerSlidingTabStrip;
@@ -33,14 +35,14 @@ public class FragmentSection extends Fragment{
     private Context context;
     private View view;
     private String category, lang, type;
-    private String[] gamesName, langsName;
-    private int[] gamesIcon, langsIcon;
+    private ArrayList<Category> gamesArray, languagesArray;
+    private ArrayList<String> gamesTitle = new ArrayList<String>();
     private ViewPager pager;
     private MyPagerAdapter adapter;
     private LinearLayout errorLayout;
     private TextView errorText;
     private ImageView errorImg;
-    private ArrayList<Integer> gamesActive = new ArrayList<Integer>();
+    private ArrayList<String> gamesActive = new ArrayList<String>();
     private ArrayList<Post> posts = new ArrayList<Post>();
     private FragmentSection thisActivity;
     private PagerSlidingTabStrip tabs;
@@ -73,10 +75,13 @@ public class FragmentSection extends Fragment{
 
 
         lang = context.getResources().getConfiguration().locale.getLanguage();
-        gamesName = new AppDatas().getGamesName();
-        gamesIcon = new AppDatas().getGamesDrawable();
-        langsName = new AppDatas().getLangsName();
-        langsIcon = new AppDatas().getLangsDrawable();
+        gamesArray = new JSONFilesManager().getCategoriesList(context, "game");
+        languagesArray = new JSONFilesManager().getCategoriesList(context, "language");
+
+        for(Category game : gamesArray)
+            gamesTitle.add(game.getIcon());
+
+        gamesArray.add(0, new Category("All", "oe_menu"));
 
         pager = (ViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
@@ -129,11 +134,9 @@ public class FragmentSection extends Fragment{
 
         @Override
         public int getPageIconResId(int position){
-//            if(position == gamesActive.size())
-//                return R.drawable.tv;
-//            else
-                return gamesActive.get(position);
+            return getResources().getIdentifier(gamesActive.get(position), "drawable", context.getPackageName());
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {
@@ -146,7 +149,7 @@ public class FragmentSection extends Fragment{
 //                return getResources().getString(R.string.english);
 //            else {
 //                Log.d(TAG, "no title");
-                return "";
+                return "TEST";
 //            }
         }
 
@@ -175,21 +178,44 @@ public class FragmentSection extends Fragment{
         }
 
         if(type.equals("game")){
-            for(int i = 0 ; i < langsName.length ; i++){
-                ArrayList<Post> checkExistPosts = new AppDatas().sortPostsv2(langsName[i], posts);
-                if(checkExistPosts.size() > 0){
-                    postsSorted.add(checkExistPosts);
-                    gamesActive.add(langsIcon[i]);
+            for(Category language : languagesArray){
+                ArrayList<Post> postsList = new ArrayList<Post>();
+                for(Post post : posts){
+                    if(post.getLanguage().equals(language.getIcon())){
+                        postsList.add(post);
+                    }
+                }
+
+                if(postsList.size() > 0){
+                    postsSorted.add(postsList);
+                    gamesActive.add(language.getIcon());
                 }
             }
         }
         else{
-            for(int i = 0 ; i < gamesName.length ; i++){
-                ArrayList<Post> checkExistPosts = new AppDatas().sortPosts(gamesName[i], posts);
-                if(checkExistPosts.size() > 0){
-                    postsSorted.add(checkExistPosts);
-                    gamesActive.add(gamesIcon[i]);
+            for(Category game : gamesArray){
+                ArrayList<Post> postsList = new ArrayList<Post>();
+                if(game.getName().equals("All")){
+                    postsList.addAll(posts);
                 }
+                else if(game.getIcon().equals("other")){
+                    for(Post post : posts) {
+                        if(!gamesTitle.contains(post.getThumbnail()))
+                            postsList.add(post);
+                    }
+                }
+                else {
+                    for(Post post : posts) {
+                        if(post.getThumbnail().equals(game.getIcon())){
+                            postsList.add(post);
+                        }
+                    }
+                }
+                if(postsList.size() > 0){
+                    postsSorted.add(postsList);
+                    gamesActive.add(game.getIcon());
+                }
+
             }
 
             if(gamesActive.size() == 2){
@@ -222,12 +248,11 @@ public class FragmentSection extends Fragment{
 
         protected Void doInBackground(String... category) {
             DatabaseActions dbh = new DatabaseActions(context);
-            if(category[0].equals("custom")){
-                posts = dbh.readDb("oe_menu_drawer");
+
+            posts = dbh.readDb(context, category[0]);
+
+            if(category[0].equals("oe_menu"))
                 posts = new CustomPosts().getCustomPosts(context, posts);
-            }
-            else
-                posts = dbh.readDb(category[0]);
 
             return null;
         }

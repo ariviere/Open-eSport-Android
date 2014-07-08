@@ -30,7 +30,8 @@
     <color name="orange_lightest">#fff9cf65</color>
     <color name="orange_light">#f98a39</color>
     <color name="orange_dark">#eb3b23</color>
-    <color name="orange">#f0562a</color>  
+    <color name="orange">#f0562a</color>
+    <color name="brown">#a15925</color>
     <color name="grey_bg">#e3e2dc</color>
     <color name="grey_border">#3f4552</color>
     <color name="grey_lighter">#dcdcdc</color>
@@ -44,4 +45,8 @@
     <color name="blue_light">#20b2c6</color>
     <color name="blue_darker">#0d393f</color>
     <color name="blue_dark">#1e4a50</color>
+    <color name="lol_color">#cfb400</color>
+    <color name="sc2_color">#7c92ab</color>
+    <color name="dota2_color">#c14d2c</color>
+    <color name="csgo_color">#d17200</color>
 </resources>

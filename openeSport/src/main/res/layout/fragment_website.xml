@@ -8,7 +8,7 @@
     <com.astuetz.viewpager.extensions.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="48dip"
+        android:layout_height="@dimen/filter_games_height"
         app:shouldExpand="true"
         android:background="@color/gen_darkest_grey"
         app:indicatorHeight="4dp"

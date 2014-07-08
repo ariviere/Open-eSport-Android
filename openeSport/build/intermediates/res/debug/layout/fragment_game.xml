@@ -1,0 +1,31 @@
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/grey_bg"
+    android:paddingTop="4dp"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    style="@style/SwipeLayout"
+    >
+
+        <GridView
+            android:id="@+id/list_view_articles"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:cacheColorHint="#00000000"
+            android:drawSelectorOnTop="false"
+            android:listSelector="@drawable/tab_indicator_ab_openesport"
+            android:scrollbars="none"
+            android:background="@color/grey_bg"
+            android:scrollingCache="true"
+            android:divider="@color/grey_bg"
+            android:dividerHeight="@dimen/posts_list_divider_margin"
+            android:paddingTop="@dimen/posts_list_margin"
+            android:clipToPadding="false"
+            android:horizontalSpacing="@dimen/small_space"
+            android:verticalSpacing="@dimen/small_space"
+            style="@style/GridViewArticles"
+            />
+
+</android.support.v4.widget.SwipeRefreshLayout><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/layout/fragment_game.xml -->
