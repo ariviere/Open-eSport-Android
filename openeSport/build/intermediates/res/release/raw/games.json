@@ -1,0 +1,67 @@
+[
+    {
+        "name":"LoL",
+        "id":"lol",
+        "abrev":"LOL",
+        "twitch_name":"League+of+Legends",
+        "page":"0",
+        "enabled": true
+    },
+    {
+        "name":"Starcraft 2",
+        "id":"sc2",
+        "abrev":"SC2",
+        "twitch_name":"StarCraft+II:+Heart+of+the+Swarm",
+        "page":"0",
+        "enabled": true
+    }, 
+    {
+        "name":"DotA 2",
+        "id":"dota2",
+        "abrev":"DOTA2",
+        "twitch_name":"Dota+2",
+        "page":"0",
+        "enabled": true
+    }, 
+    {
+        "name":"CS:GO",
+        "id":"csgo",
+        "abrev":"CSGO",
+        "twitch_name":"Counter-Strike:+Global+Offensive",
+        "page":"0",
+        "enabled": true
+    }, 
+    {
+        "name":"Versus Fighting",
+        "id":"versus",
+        "abrev":"VS",
+        "twitch_name":"Super+Street+Fighter+IV",
+        "page":"0",
+        "position":"5",
+        "enabled": false
+    }, 
+    {
+        "name":"QuakeLive",
+        "id":"ql",
+        "abrev":"QL",
+        "twitch_name":"Quake+Live",
+        "page":"0",
+        "enabled": false
+    }, 
+    {
+        "name":"Hearthstone",
+        "id":"hearthstone",
+        "abrev":"HS",
+        "twitch_name":"Hearthstone:+Heroes+of+Warcraft",
+        "page":"0",
+        "enabled": false
+    }, 
+    {
+        "name":"Autres",
+        "id":"other",
+        "abrev":"#",
+        "twitch_name":"autres",
+        "page":"0",
+        "enabled": false
+    }
+]

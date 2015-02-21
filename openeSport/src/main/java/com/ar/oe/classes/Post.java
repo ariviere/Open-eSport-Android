@@ -8,7 +8,7 @@ import android.os.Parcelable;
 
 
 @SuppressWarnings("rawtypes")
-public class Post implements Serializable, Comparable {
+public class Post implements Parcelable, Comparable {
 
 	private static final long serialVersionUID = 5329308668228500983L;
 	private long id;
@@ -128,10 +128,25 @@ public class Post implements Serializable, Comparable {
         language = in.readString();
 	}
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(website);
+        dest.writeString(thumbnail);
+        dest.writeString(url);
+        dest.writeString(pubDate);
+        dest.writeString(author);
+        dest.writeString(language);
+    }
+
 	@Override
 	public int compareTo(Object arg0) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 }

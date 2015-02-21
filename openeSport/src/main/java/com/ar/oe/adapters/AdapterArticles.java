@@ -61,10 +61,7 @@ public class AdapterArticles extends BaseAdapter{
 			holder = (ViewHolder) vi.getTag();
 
 		//Show title
-		if(data.get(position).getTitle().length() > 65)
-			holder.label.setText(data.get(position).getTitle().substring(0, 65) + "...");
-		else
-			holder.label.setText(data.get(position).getTitle());
+        holder.label.setText(data.get(position).getTitle());
 
 		//Show author
 		if(data.get(position).getAuthor() == null || data.get(position).getAuthor().equals("null") || data.get(position).getAuthor().equals("") || data.get(position).getAuthor().equals(data.get(position).getWebsite()))

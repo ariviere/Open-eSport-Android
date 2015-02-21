@@ -22,4 +22,4 @@
     <item android:state_pressed="false" android:state_focused="true" android:drawable="@drawable/list_focused_openesport" />
     <item android:state_pressed="true" android:drawable="@drawable/pressed_background_openesport" />
     <item android:drawable="@android:color/transparent" />
-</selector><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/drawable/selectable_background_openesport.xml -->
+</selector><!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/drawable/selectable_background_openesport.xml -->

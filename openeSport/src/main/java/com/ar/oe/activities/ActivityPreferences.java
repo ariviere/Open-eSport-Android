@@ -5,11 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.ar.oe.R;
 import com.google.analytics.tracking.android.EasyTracker;
 

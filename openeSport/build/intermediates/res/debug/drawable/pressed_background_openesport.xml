@@ -20,4 +20,4 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <solid android:color="@color/pressed_openesport" />
 </shape>
-<!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/drawable/pressed_background_openesport.xml -->
+<!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/drawable/pressed_background_openesport.xml -->

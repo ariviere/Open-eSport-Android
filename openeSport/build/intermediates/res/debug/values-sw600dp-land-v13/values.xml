@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/values-sw600dp-land/styles.xml -->
+    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/values-sw600dp-land/styles.xml -->
     <eat-comment />
 
     <style name="GridViewArticles">

@@ -26,4 +26,4 @@
         android:drawable="@drawable/spinner_ab_focused_openesport" />
     <item android:drawable="@drawable/spinner_ab_default_openesport" />
 </selector>
-<!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/drawable/spinner_background_ab_openesport.xml -->
+<!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/drawable/spinner_background_ab_openesport.xml -->

@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/values-fr/values.xml -->
+    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/values-fr/strings.xml -->
+    <eat-comment />
+
+    <string-array name="pref_filter_type_entries">
+        <item>Par jeux</item>
+        <item>Par langue</item>
+    </string-array>
+    <string-array name="pref_filter_type_values">
+        <item>website</item>
+        <item>game</item>
+    </string-array>
+    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/values-fr/values.xml -->
     <eat-comment />
 
     <string name="abc_action_bar_home_description" msgid="4600421777120114993">"Revenir à l\'accueil"</string>
@@ -17,7 +28,7 @@
     <string name="abc_searchview_description_voice" msgid="893419373245838918">"Recherche vocale"</string>
     <string name="abc_shareactionprovider_share_with" msgid="3421042268587513524">"Partager avec"</string>
     <string name="abc_shareactionprovider_share_with_application" msgid="7165123711973476752">"Partager avec %s"</string>
-    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/values-fr/strings.xml -->
+    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/values-fr/strings.xml -->
     <eat-comment />
 
     <string name="accueil">Accueil</string>
@@ -50,45 +61,63 @@
     <string name="english">Anglais</string>
     <string name="error_articles">Aucun article trouvé, essayez de changer les critères de recherche.</string>
     <string name="error_custom">Pour charger cette section, il faut d\'abord la configurer dans les paramètres. Cliquez sur l\'icone d\'options en haut à droite de l\'écran.</string>
-    <string name="error_network">Serveur inaccessible. Vérifiez votre connexion internet et réessayez.</string>
-    <string name="esfr">eSportsFrance</string>
+    <string name="error_msg">Articles non disponibles</string>
+    <string name="error_network">Impossible de récupérer les articles. Vérifiez votre connexion internet et réessayez.</string>
+    <string name="esportactu">Esport Actu</string>
+    <string name="esportsexpress">Esports Express</string>
+    <string name="esportsheaven">Esports Heaven</string>
+    <string name="esreality">ESReality</string>
     <string name="fifa">FIFA 12</string>
     <string name="filtres">Filtres</string>
     <string name="first_time_prefs">Bienvenue sur Open eSport. Choisissez vos jeux favoris et les langues que vous voulez voir apparaitre dans le fil d\'actualité.\n\nVous pourrez revenir aux paramètres plus tard en sélectionnant l\'icone d\'engrenage en haut à droite de l\'écran.</string>
     <string name="french">Français</string>
     <string name="games">JEU</string>
     <string name="games_pref_screen">Jeux</string>
+    <string name="hearthstone">HearthStone</string>
     <string name="hltv">HLTV</string>
+    <string name="home">Home</string>
     <string name="iewt">IEWT</string>
     <string name="info">Open eSport - v</string>
     <string name="infos">App Infos</string>
-    <string name="instructions_tools">Cochez les sites dont vous voulez voir les articles dans votre sélection personnalisée.</string>
     <string name="joindota">joinDOTA</string>
     <string name="language">LANGUE</string>
     <string name="last_update">Mis à jour</string>
     <string name="loading">Chargement en cours</string>
     <string name="lol">League of Legends</string>
     <string name="millenium">Millenium</string>
-    <string name="network_error">Une erreur réseau s\'est produite. Vérifiez votre connexion et/ou réessayez plus tard.</string>
     <string name="new_version_desc">- Trois nouvelles catégories : HearthStone, Quake et Versus Fighting font leur apparition. Et avec elle, 4 nouveaux sites arrivent : Esport Actu, Esports Express, Shoryuken et ESReality.\nDes catégories par jeu sont disponibles dans le menu.\n\n- Open eSport version web est en ligne, rejoignez-nous sur www.openesport.com\n\n- DotA time ! joinDOTA et dota2fr sont désormais disponibles. Enjoy!\n\n- Trois nouveaux sites débarquent sur Open eSport : onGamers, SK Gaming et Thunderbot.\n\n- Vous avez maintenant accès aux articles CS:GO de Reddit.</string>
     <string name="new_version_title">Des nouveautés :)</string>
     <string name="no_datas">Aucun article n\'a été trouvé, essayez de changer les critères de recherche.</string>
     <string name="ogaming">O\'Gaming</string>
+    <string name="ogaming_brut">O Gaming</string>
+    <string name="ongamers">onGamers</string>
     <string name="other">AUTRE</string>
     <string name="others">Autres jeux</string>
     <string name="pref_filter_type">Type des filtres</string>
+    <string name="pref_filter_type_lang">website</string>
     <string name="pref_filter_type_summary">Comment afficher les articles</string>
     <string name="ql">QuakeLive</string>
     <string name="reddit">Reddit</string>
-    <string name="refresh">Réessayer</string>
+    <string name="refresh">ACTUALISER</string>
     <string name="sc2">Starcraft II</string>
+    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/values-fr/config.xml -->
+    <eat-comment />
+
+    <string name="server_url">http://openesport.herokuapp.com/posts/web</string>
+    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/values-fr/strings.xml -->
+    <eat-comment />
+
+    <string name="shoryuken">Shoryuken</string>
+    <string name="skgaming">SK Gaming</string>
     <string name="sm">ShootMania</string>
     <string name="teamaaa">Team aAa</string>
     <string name="teamliquid">TeamLiquid</string>
+    <string name="thunderbot">Thunderbot</string>
     <string name="tools">Paramètres</string>
     <string name="tous">Tous</string>
     <string name="vakarm">VaKarM</string>
     <string name="validate">Valider</string>
+    <string name="versus">Versus Fighting</string>
     <string name="w3">Warcraft III</string>
     <string name="websites">SITE</string>
     <string name="websites_pref_screen">Sites web</string>

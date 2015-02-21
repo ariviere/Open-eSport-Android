@@ -49,4 +49,7 @@
     <color name="sc2_color">#7c92ab</color>
     <color name="dota2_color">#c14d2c</color>
     <color name="csgo_color">#d17200</color>
+    <color name="button_light">#e1e8ed</color>
+    <color name="button_normal">#939da4</color>
+    <color name="white_dark">#efefef</color>
 </resources>

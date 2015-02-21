@@ -3,77 +3,76 @@ package com.ar.oe.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ar.oe.R;
 import com.ar.oe.classes.Category;
-import com.ar.oe.workers.DataService;
 import com.ar.oe.classes.Post;
 import com.ar.oe.adapters.DrawerAdapter;
 import com.ar.oe.drawer.DrawerHeaderItem;
 import com.ar.oe.drawer.DrawerItemInterface;
 import com.ar.oe.drawer.DrawerListItem;
 import com.ar.oe.fragments.FragmentSection;
-import com.ar.oe.utils.DatabaseActions;
-import com.ar.oe.utils.DateParsing;
 import com.ar.oe.utils.JSONFilesManager;
 import com.ar.oe.utils.JSONParsing;
-import com.ar.oe.utils.RandomNumber;
-import com.foxykeep.datadroid.activity.generic.GenericDataActivityCompat;
 import com.google.analytics.tracking.android.EasyTracker;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
+import com.parse.Parse;
+import com.parse.ParseObject;
 
-public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_TYPE> {
+public class ActivityHome extends ActionBarActivity {
+
     private String TAG = "Main activity";
-    private final static String SERVER_URL = "http://openesport.herokuapp.com/posts/web";
     private Context context;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private ImageView splashImg, errorImg;
+    private ImageView splashImg;
+    private Button errorButton;
     private TextView errorText;
     private LinearLayout errorLayout;
+    private ProgressBar progressBar;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerAdapter mMenuAdapter;
     private ArrayList<Category> categories;
     private List<DrawerItemInterface> items;
-    private MenuItem refreshItem, settingsItem;
-    private boolean refreshing;
     private int currentMenuItem;
-    private boolean error = false, crashed = false;
     private Bundle savedState;
-    private FragmentSection fragmentSection;
     private SharedPreferences sharedPref;
+    private ArrayList<Post> articles;
 
-	@Override
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.drawer_main);
 
+        Parse.initialize(this, "E60N4EVmgFUKNTb8Zw0XX7pvehdxVWI0hcufUbgW", "HlcnTmcD8OCnRoMYwvmpCXkhi1O0iT8FnCJpNbM8");
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+        
         context = this;
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -83,8 +82,9 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
-        errorImg = (ImageView) findViewById(R.id.error_img);
+        errorButton = (Button) findViewById(R.id.error_button);
         errorText = (TextView) findViewById(R.id.error_text);
+        progressBar = (ProgressBar) findViewById(R.id.loading);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -92,10 +92,8 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
 
         if(savedState == null){
             showSplashImg();
-            new loadArticles().execute(context);
+            populateDatabase();
         }else{
-            error = savedState.getBoolean("error");
-            crashed = savedState.getBoolean("crashed");
             showDatas();
         }
 	}
@@ -112,17 +110,10 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("menu_items", categories);
-        outState.putSerializable("error", error);
-        outState.putSerializable("crashed", crashed);
-    }
-
-    @Override
-    protected DataService.WORKER_TYPE getWorkerTypeByOrdinal(int ordinal) {
-        return DataService.WORKER_TYPE.values()[ordinal];
     }
 
     private void initDrawer(){
-        if(savedState != null && !crashed)
+        if(savedState != null)
             categories = (ArrayList<Category>)savedState.getSerializable("menu_items");
         if(categories == null){
             categories = new ArrayList<Category>();
@@ -177,45 +168,32 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
     private void showDatas(){
         launchPrefScreen();
 
-        if(!error){
-            if(crashed){
-                settingsItem.setVisible(true);
-                mDrawerLayout.setVisibility(View.VISIBLE);
-                errorLayout.setVisibility(View.GONE);
-                errorImg.setVisibility(View.GONE);
-                errorText.setVisibility(View.GONE);
-            }
+        initDrawer();
 
-            initDrawer();
+        mMenuAdapter.notifyDataSetChanged();
+        mDrawerList.setAdapter(mMenuAdapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-            mMenuAdapter.notifyDataSetChanged();
-            mDrawerList.setAdapter(mMenuAdapter);
-            mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-            crashed = false;
-        }
-        else{
-            int randomNumber = new RandomNumber().generateRandomNumber();
-            String imgName = "error" + randomNumber;
-            int resID = context.getResources().getIdentifier(imgName, "drawable", context.getPackageName());
-            errorImg.setImageResource(resID);
-
-            mDrawerLayout.setVisibility(View.GONE);
-            settingsItem.setVisible(false);
-
-            errorLayout.setVisibility(View.VISIBLE);
-            errorImg.setVisibility(View.VISIBLE);
-            errorText.setVisibility(View.VISIBLE);
-            crashed = true;
-
+        if(splashImg.getVisibility() == View.VISIBLE) {
+            hideSplashImg();
         }
 
-        if(splashImg.getVisibility() == View.VISIBLE) hideSplashImg();
-        if(refreshing) {
-            stopRefresh();
+        mDrawerLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+
+        selectItem(0);
+    }
+
+    private void showBlank(){
+        if(splashImg.getVisibility() == View.VISIBLE) {
+            hideSplashImg();
         }
-        if(!crashed)
-            selectItem(0);
+
+        mDrawerLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
+        errorText.setVisibility(View.VISIBLE);
+        errorButton.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -223,14 +201,6 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_articles, menu);
         return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        refreshItem = menu.findItem(R.id.item_refresh);
-        settingsItem = menu.findItem(R.id.item_settings);
-
-        return super.onPrepareOptionsMenu(menu);
     }
 
 	@Override
@@ -244,13 +214,6 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
 				mDrawerLayout.openDrawer(mDrawerList);
 			}
             break;
-        //Refresh button
-        case(R.id.item_refresh):
-            startRefresh();
-            //Launching data load
-            new loadArticles().execute(context);
-            break;
-
         case(R.id.item_settings):
             Intent intent_tools = new Intent(context, ActivityPreferences.class);
             startActivityForResult(intent_tools, 1);
@@ -259,35 +222,6 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
 
 		return super.onOptionsItemSelected(item);
 	}
-
-    public void startRefresh() {
-        refreshing = true;
-        LayoutInflater inflater = (LayoutInflater) getApplication()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ImageView iv = (ImageView) inflater.inflate(R.layout.action_refresh,
-                null);
-
-        Animation rotation = AnimationUtils.loadAnimation(getApplication(),
-                R.anim.refresh_rotate);
-        rotation.setRepeatCount(Animation.INFINITE);
-        iv.startAnimation(rotation);
-        MenuItemCompat.setActionView(refreshItem, iv);
-    }
-
-    public void stopRefresh(){
-        MenuItemCompat.getActionView(refreshItem).clearAnimation();
-        MenuItemCompat.setActionView(refreshItem, null);
-    }
-
-    @Override
-    public void onRequestFinishedSuccess(DataService.WORKER_TYPE workerType, Bundle payload) {
-
-    }
-
-    @Override
-    public void onRequestFinishedError(DataService.WORKER_TYPE workerType, Bundle payload) {
-
-    }
 
     // The click listener for ListView in the navigation drawer
 	private class DrawerItemClickListener implements
@@ -312,79 +246,48 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
     }
 
 	private void selectItem(int position) {
-        currentMenuItem = position;
-        if(position > 1 && position < 9){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            fragmentSection = FragmentSection.newInstance("game", categories.get(position).getIcon());
-            ft.replace(R.id.content_frame, fragmentSection, "articlesFragment");
-            ft.commit();
-            mDrawerList.setItemChecked(position, true);
-        }
-        else{
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            fragmentSection = FragmentSection.newInstance("website", categories.get(position).getIcon());
-            ft.replace(R.id.content_frame, fragmentSection, "articlesFragment");
-            ft.commit();
-            mDrawerList.setItemChecked(position, true);
+        try {
+            currentMenuItem = position;
+            if (position > 1 && position < 9) {
+                FragmentSection fragmentSection = FragmentSection.newInstance(articles, "game", categories.get(position).getIcon());
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragmentSection);
+                ft.commit();
+                mDrawerList.setItemChecked(position, true);
+            } else {
+                FragmentSection fragmentSection = FragmentSection.newInstance(articles, "website", categories.get(position).getIcon());
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragmentSection);
+                ft.commit();
+                mDrawerList.setItemChecked(position, true);
+            }
+        }catch (IllegalStateException e){
+            e.printStackTrace();
         }
         mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		// Pass any configuration change to the drawer toggles
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}
+    public void startRefreshButton(View view){
+        populateDatabase();
+        progressBar.setVisibility(View.VISIBLE);
+        errorLayout.setVisibility(View.GONE);
+        errorText.setVisibility(View.GONE);
+        errorButton.setVisibility(View.GONE);
+    }
 
-    public class loadArticles extends AsyncTask<Context, Void, Void> {
-        private DateParsing tb = new DateParsing();
+    final Handler mHandler = new Handler();
 
-        @Override
-        protected Void doInBackground(Context... context) {
-            DatabaseActions dbh = new DatabaseActions(context[0]);
-            dbh.removeDatas();
-            JSONParsing jTools = new JSONParsing();
-            JSONArray jsonRss = null;
-
-            try{
-                jsonRss = jTools.getJSONfromURL(SERVER_URL);
-            }catch(Exception e){
-                error = true;
-                return null;
-            }
-
-            ArrayList<Post> posts = new ArrayList<Post>();
-            try {
-                for(int i = 0 ; i < jsonRss.length() ; i++){
-                    Post post = new Post();
-                    post.setTitle(jsonRss.getJSONObject(i).getString("title"));
-                    post.setWebsite(jsonRss.getJSONObject(i).getString("website"));
-                    post.setAuthor(jsonRss.getJSONObject(i).getString("author"));
-                    post.setThumbnail(jsonRss.getJSONObject(i).getString("category"));
-                    post.setLanguage(jsonRss.getJSONObject(i).getString("language"));
-                    post.setPubDate(jsonRss.getJSONObject(i).getString("pubDate"));
-                    post.setUrl(jsonRss.getJSONObject(i).getString("link"));
-                    posts.add(post);
-                }
-            } catch (JSONException e){
-                error = true;
-                return null;
-            } catch (NullPointerException e){
-                error = true;
-                return null;
-            }
-            dbh.insertColumns(posts);
-            error = false;
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
+    final Runnable showDatas = new Runnable() {
+        public void run() {
             showDatas();
         }
-    }
+    };
+
+    final Runnable showBlank = new Runnable() {
+        public void run() {
+            showBlank();
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -396,7 +299,6 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
                 editor.commit();
 
                 currentMenuItem = 0;
-                startRefresh();
                 showDatas();
             }
         }
@@ -413,4 +315,5 @@ public class ActivityHome extends GenericDataActivityCompat<DataService.WORKER_T
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);  // Add this method.
     }
+
 }

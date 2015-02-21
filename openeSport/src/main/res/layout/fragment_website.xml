@@ -22,13 +22,12 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/colors"
         android:layout_below="@+id/tabs"
         tools:context=".MainActivity" >
 
     </android.support.v4.view.ViewPager>
 
 
-    <include layout="@layout/error" />
+    <include layout="@layout/no_data" />
 
 </RelativeLayout>

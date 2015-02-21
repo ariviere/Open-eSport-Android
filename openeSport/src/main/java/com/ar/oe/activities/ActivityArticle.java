@@ -1,15 +1,13 @@
 package com.ar.oe.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import com.ar.oe.classes.Post;
 import com.ar.oe.R;
 import com.ar.oe.fragments.FragmentArticle;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 
 public class ActivityArticle extends ActionBarActivity {
 

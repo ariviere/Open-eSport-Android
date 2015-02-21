@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.ar.oe.R;
@@ -23,7 +24,7 @@ public class FragmentStreams extends Fragment {
     private static final String ARG_POSITION = "position";
     private ArrayList<Stream> streams = new ArrayList<Stream>();
     Context context;
-    ListView articlesListView;
+    GridView articlesListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +33,7 @@ public class FragmentStreams extends Fragment {
         context = container.getContext();
         streams = (ArrayList<Stream>) getArguments().getSerializable("streams");
         if(streams != null && streams.size() != 0){
-            articlesListView = (ListView)rootView.findViewById(R.id.list_view_articles);
+            articlesListView = (GridView)rootView.findViewById(R.id.list_view_articles);
             articlesListView.setAdapter(new AdapterStreams(context, streams));
 
             articlesListView.setOnItemClickListener(new OnItemClickListener() {

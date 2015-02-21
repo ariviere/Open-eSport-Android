@@ -5,4 +5,4 @@
     <item android:state_focused="true" android:drawable="@color/background_tab_pressed"/>
     <item android:drawable="@android:color/transparent"/>
 
-</selector><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/pagerSlidingTab/src/main/res/drawable/background_tab.xml --><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/build/intermediates/exploded-aar/OpeneSportNew/pagerSlidingTab/unspecified/res/drawable/background_tab.xml -->
+</selector><!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/pagerSlidingTab/src/main/res/drawable/background_tab.xml --><!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/build/intermediates/exploded-aar/OpeneSport/pagerSlidingTab/unspecified/res/drawable/background_tab.xml -->

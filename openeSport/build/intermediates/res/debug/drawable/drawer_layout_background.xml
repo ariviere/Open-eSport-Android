@@ -4,4 +4,4 @@
     <item android:state_selected="true" android:drawable="@color/orange" />
     <item android:state_pressed="true" android:drawable="@color/orange" />
     <item android:drawable="@color/dark_grey" />
-</selector><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/drawable/drawer_layout_background.xml -->
+</selector><!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/drawable/drawer_layout_background.xml -->

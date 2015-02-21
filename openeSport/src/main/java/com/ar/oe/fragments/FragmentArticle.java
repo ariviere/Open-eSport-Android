@@ -33,7 +33,6 @@ public class FragmentArticle extends Fragment{
     private LayoutInflater inflater;
     private Post post;
     private WebView webView;
-    private MenuItem refreshItem;
     private boolean refreshing = false;
 
     @Override
@@ -76,26 +75,6 @@ public class FragmentArticle extends Fragment{
         }
 
         webView.loadUrl(post.getUrl());
-        webView.setWebViewClient(new WebViewClient(){
-            public void onPageFinished(WebView view, String url){
-                if(refreshing){
-                    MenuItemCompat.getActionView(refreshItem).clearAnimation();
-                    MenuItemCompat.setActionView(refreshItem, null);
-                    refreshing = false;
-                }
-            }
-        });
-    }
-
-    private void refresh(){
-        ImageView iv = (ImageView) inflater.inflate(R.layout.action_refresh,
-                null);
-
-        Animation rotation = AnimationUtils.loadAnimation(getActivity(),
-                R.anim.refresh_rotate);
-        rotation.setRepeatCount(Animation.INFINITE);
-        iv.startAnimation(rotation);
-        MenuItemCompat.setActionView(refreshItem, iv);
     }
 
     @Override
@@ -104,10 +83,6 @@ public class FragmentArticle extends Fragment{
             case android.R.id.home:
                 getActivity().finish();
                 break;
-            case R.id.item_refresh:
-                webView.reload();
-                refreshing = true;
-                refresh();
         }
         return true;
     }
@@ -119,10 +94,6 @@ public class FragmentArticle extends Fragment{
         MenuItem shareItem = menu.findItem(R.id.menu_item_share);
         ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         mShareActionProvider.setShareIntent(createShareIntent());
-
-        refreshItem = menu.findItem(R.id.item_refresh);
-        refreshing = true;
-        refresh();
 
         super.onCreateOptionsMenu(menu, inflater);
     }

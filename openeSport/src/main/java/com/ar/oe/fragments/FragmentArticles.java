@@ -63,8 +63,7 @@ public class FragmentArticles extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        ((ActivityHome) getActivity()).new loadArticles().execute(context);
-        ((ActivityHome) getActivity()).startRefresh();
+        ((ActivityHome) getActivity()).populateDatabase();
     }
     public FragmentArticles(){
     }

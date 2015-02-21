@@ -6,10 +6,4 @@
         android:title="Parametres"
         android:icon="@drawable/settings"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/item_refresh"
-        android:title="Rafraichir"
-        android:icon="@drawable/refresh"
-        app:showAsAction="always" />
-
-</menu><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/menu/menu_articles.xml -->
+</menu><!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/menu/menu_articles.xml -->

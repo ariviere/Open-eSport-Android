@@ -25,4 +25,4 @@
     <item android:state_enabled="true"
         android:drawable="@drawable/btn_cab_done_default_openesport" />
 </selector>
-<!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/drawable/btn_cab_done_openesport.xml -->
+<!-- From: file:/Users/ariviere/Documents/Android/OpeneSport/openeSport/src/main/res/drawable/btn_cab_done_openesport.xml -->

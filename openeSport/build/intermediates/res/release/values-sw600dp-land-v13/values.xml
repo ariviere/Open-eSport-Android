@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/values-sw600dp-land/styles.xml -->
+    <eat-comment />
+
+    <style name="GridViewArticles">
+        <item name="android:numColumns">2</item>
+    </style>
+
+    <style name="SwipeLayout">
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
+    </style>
+
+</resources>

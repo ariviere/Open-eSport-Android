@@ -11,8 +11,18 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/esfr"
         android:src="@drawable/oe_splash" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        />
+
+    <include layout="@layout/no_data" />
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -38,7 +48,5 @@
             android:dividerHeight="1dp" />
 
     </android.support.v4.widget.DrawerLayout>
-
-    <include layout="@layout/error" />
 
 </RelativeLayout>

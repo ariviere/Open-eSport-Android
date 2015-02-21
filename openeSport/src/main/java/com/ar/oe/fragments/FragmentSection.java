@@ -9,11 +9,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,10 +20,8 @@ import com.ar.oe.classes.Category;
 import com.ar.oe.classes.Post;
 import com.ar.oe.classes.Stream;
 import com.ar.oe.utils.CustomPosts;
-import com.ar.oe.utils.DatabaseActions;
 import com.ar.oe.utils.JSONFilesManager;
 import com.ar.oe.utils.JSONTwitchParsing;
-import com.ar.oe.utils.RandomNumber;
 import com.astuetz.viewpager.extensions.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
@@ -41,7 +37,6 @@ public class FragmentSection extends Fragment{
     private MyPagerAdapter adapter;
     private LinearLayout errorLayout;
     private TextView errorText;
-    private ImageView errorImg;
     private ArrayList<String> gamesActive = new ArrayList<String>();
     private ArrayList<Post> posts = new ArrayList<Post>();
     private FragmentSection thisActivity;
@@ -55,9 +50,10 @@ public class FragmentSection extends Fragment{
         thisActivity = this;
     }
 
-    public static FragmentSection newInstance(String type, String category){
+    public static FragmentSection newInstance(ArrayList<Post> posts, String type, String category){
         FragmentSection fragmentRssWebsite = new FragmentSection();
         Bundle args = new Bundle();
+        args.putParcelableArrayList("articles", posts);
         args.putString("category", category);
         args.putString("type", type);
         fragmentRssWebsite.setArguments(args);
@@ -72,7 +68,7 @@ public class FragmentSection extends Fragment{
         context = view.getContext();
         category = getArguments().getString("category");
         type = getArguments().getString("type");
-
+        posts = getArguments().getParcelableArrayList("articles");
 
         lang = context.getResources().getConfiguration().locale.getLanguage();
         gamesArray = new JSONFilesManager().getCategoriesList(context, "game");
@@ -88,7 +84,6 @@ public class FragmentSection extends Fragment{
         errorLayout = (LinearLayout) view.findViewById(R.id.error_layout);
         errorText = (TextView) view.findViewById(R.id.error_text);
         errorText.setText(getResources().getString(R.string.error_articles));
-        errorImg = (ImageView) view.findViewById(R.id.error_img);
 
 
         if(savedInstanceState != null){
@@ -97,19 +92,25 @@ public class FragmentSection extends Fragment{
                 posts = (ArrayList<Post>) savedInstanceState.getSerializable("posts");
                 showUI();
             }else{
-                int randomNum = new RandomNumber().generateRandomNumber();
-                String imgName = "error" + randomNum;
-                int resID = context.getResources().getIdentifier(imgName, "drawable", context.getPackageName());
-                errorImg.setImageResource(resID);
                 tabs.setVisibility(View.GONE);
                 pager.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.VISIBLE);
                 errorText.setVisibility(View.VISIBLE);
-                errorImg.setVisibility(View.VISIBLE);
             }
         }
-        else
-            new loadingArticles().execute(category);
+        else{
+            if(posts.size() == 0){
+                noArticle = true;
+                tabs.setVisibility(View.GONE);
+                pager.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
+                errorText.setVisibility(View.VISIBLE);
+            }
+            else{
+                noArticle = false;
+                showUI();
+            }
+        }
 
 //        new loadStreams().execute();
 
@@ -242,40 +243,6 @@ public class FragmentSection extends Fragment{
 
         pager.setCurrentItem(0);
 
-    }
-
-    class loadingArticles extends AsyncTask<String, Void, Void> {
-
-        protected Void doInBackground(String... category) {
-            DatabaseActions dbh = new DatabaseActions(context);
-
-            posts = dbh.readDb(context, category[0]);
-
-            if(category[0].equals("oe_menu"))
-                posts = new CustomPosts().getCustomPosts(context, posts);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            if(posts.size() == 0){
-                noArticle = true;
-                int randomNum = new RandomNumber().generateRandomNumber();
-                String imgName = "error" + randomNum;
-                int resID = context.getResources().getIdentifier(imgName, "drawable", context.getPackageName());
-                errorImg.setImageResource(resID);
-                tabs.setVisibility(View.GONE);
-                pager.setVisibility(View.GONE);
-                errorLayout.setVisibility(View.VISIBLE);
-                errorText.setVisibility(View.VISIBLE);
-                errorImg.setVisibility(View.VISIBLE);
-            }
-            else{
-                noArticle = false;
-                showUI();
-            }
-        }
     }
 
     public class loadStreams extends AsyncTask<Context, Void, Void> {

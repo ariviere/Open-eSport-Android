@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/error_layout"
+    android:layout_width="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    >
+
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:text="@string/error_network"
+        android:textSize="@dimen/medium_title"
+        android:textColor="@color/button_normal"
+        android:layout_margin="20dp"
+        />
+
+    <Button
+        android:id="@+id/error_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_list_view"
+        android:padding="15dp"
+        android:textSize="@dimen/small_title"
+        android:textAllCaps="true"
+        android:textColor="@color/button_normal"
+        android:layout_marginTop="20dp"
+        android:onClick="startRefreshButton"
+        android:text="@string/refresh" />
+
+</LinearLayout><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/layout/no_data.xml -->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="home">Home</string>
     <string name="app_name">Open eSport</string>
-    <string name="esfr">eSportsFrance</string>
     <string name="tous">Tous</string>
     <string name="accueil">Accueil</string>
     <string name="info">Open eSport - v</string>
@@ -9,14 +9,23 @@
     <string name="teamliquid">TeamLiquid</string>
     <string name="teamaaa">Team aAa</string>
     <string name="ogaming">O\'Gaming</string>
+    <string name="ogaming_brut">O Gaming</string>
     <string name="millenium">Millenium</string>
-    <string name="iewt">IEWT</string>
-    <string name="vakarm">VaKarM</string>
+    <string name="thunderbot">Thunderbot</string>
+    <string name="skgaming">SK Gaming</string>
+    <string name="ongamers">onGamers</string>
+    <string name="esreality">ESReality</string>
+    <string name="shoryuken">Shoryuken</string>
+    <string name="esportsheaven">Esports Heaven</string>
+    <string name="esportactu">Esport Actu</string>
+    <string name="esportsexpress">Esports Express</string>
     <string name="dota2fr">dota2fr</string>
-    <string name="hltv">HLTV</string>
-    <string name="cadred">Cadred</string>
     <string name="reddit">Reddit</string>
     <string name="joindota">joinDOTA</string>
+    <string name="iewt">IEWT</string>
+    <string name="vakarm">VaKarM</string>
+    <string name="hltv">HLTV</string>
+    <string name="cadred">Cadred</string>
     <string name="autres_jeux">Les autres</string>
     <string name="websites">SITE</string>
     <string name="validate">Valider</string>
@@ -39,6 +48,8 @@
     <string name="ql">QuakeLive</string>
     <string name="w3">Warcraft III</string>
     <string name="fifa">FIFA 12</string>
+    <string name="versus">Versus Fighting</string>
+    <string name="hearthstone">HearthStone</string>
     <string name="language">LANGUE</string>
     <string name="articles">ARTICLES</string>
     <string name="articles_min">Articles</string>
@@ -48,28 +59,39 @@
     <string name="filtres">Filtres</string>
     <string name="tools">Paramètres</string>
     <string name="infos">App Infos</string>
-    <string name="error_network">Serveur inaccessible. Vérifiez votre connexion internet et réessayez.</string>
+    <string name="error_network">Impossible de récupérer les articles. Vérifiez votre connexion internet et réessayez.</string>
     <string name="error_articles">Aucun article trouvé, essayez de changer les critères de recherche.</string>
     <string name="error_custom">Pour charger cette section, il faut d\'abord la configurer dans les paramètres. Cliquez sur l\'icone d\'options en haut à droite de l\'écran.</string>
     <string name="last_update">Mis à jour</string>
     <string name="loading">Chargement en cours</string>
-    <string name="refresh">Réessayer</string>
+    <string name="refresh">ACTUALISER</string>
     <string name="by">par</string>
     <string name="by2">Par</string>
     <string name="day">j</string>
     <string name="ago">plus tôt.</string>
     <string name="no_datas">Aucun article n\'a été trouvé, essayez de changer les critères de recherche.</string>
-    <string name="network_error">Une erreur réseau s\'est produite. Vérifiez votre connexion et/ou réessayez plus tard.</string>
-    <string name="instructions_tools">Cochez les sites dont vous voulez voir les articles dans votre sélection personnalisée.</string>
     <string name="drawer_open">Ouvrir le menu</string>
     <string name="drawer_close">Fermer le menu</string>
     <string name="activate_prefs">Ma sélection</string>
     <string name="activate_prefs_description">Cliquez pour activer</string>
     <string name="pref_filter_type">Type des filtres</string>
     <string name="pref_filter_type_summary">Comment afficher les articles</string>
+    <string name="pref_filter_type_lang">website</string>
+    <string name="error_msg">Articles non disponibles</string>
     <string name="games_pref_screen">Jeux</string>
     <string name="websites_pref_screen">Sites web</string>
     <string name="new_version_title">Des nouveautés :)</string>
     <string name="new_version_desc">- Trois nouvelles catégories : HearthStone, Quake et Versus Fighting font leur apparition. Et avec elle, 4 nouveaux sites arrivent : Esport Actu, Esports Express, Shoryuken et ESReality.\nDes catégories par jeu sont disponibles dans le menu.\n\n- Open eSport version web est en ligne, rejoignez-nous sur www.openesport.com\n\n- DotA time ! joinDOTA et dota2fr sont désormais disponibles. Enjoy!\n\n- Trois nouveaux sites débarquent sur Open eSport : onGamers, SK Gaming et Thunderbot.\n\n- Vous avez maintenant accès aux articles CS:GO de Reddit.</string>
     <string name="first_time_prefs">Bienvenue sur Open eSport. Choisissez vos jeux favoris et les langues que vous voulez voir apparaitre dans le fil d\'actualité.\n\nVous pourrez revenir aux paramètres plus tard en sélectionnant l\'icone d\'engrenage en haut à droite de l\'écran.</string>
+
+
+    <string-array name="pref_filter_type_entries">
+        <item>Par jeux</item>
+        <item>Par langue</item>
+    </string-array>
+
+    <string-array name="pref_filter_type_values">
+        <item>website</item>
+        <item>game</item>
+    </string-array>
 </resources>

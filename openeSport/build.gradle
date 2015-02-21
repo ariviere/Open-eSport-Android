@@ -24,8 +24,10 @@ android {
 
 dependencies {
     compile project(':pagerSlidingTab')
+    compile project(':SmoothPagerIndicator')
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile files('libs/GoogleAdMobAdsSdk-6.4.1.jar')
     compile files('libs/json-simple-1.1.1.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
+    compile files('libs/Parse-1.7.0.jar')
 }

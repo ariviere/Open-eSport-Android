@@ -5,9 +5,4 @@
         app:showAsAction="always"
         android:title="Share"
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
-    <item
-        android:id="@+id/item_refresh"
-        android:title="Rafraichir"
-        android:icon="@drawable/refresh"
-        app:showAsAction="always" />
 </menu>

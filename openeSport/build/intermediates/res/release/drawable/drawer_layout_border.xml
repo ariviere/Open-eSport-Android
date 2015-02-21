@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="15dp"
+    android:insetRight="15dp" >
+
+    <shape>
+        <solid android:color="@color/gen_darkest_plus_grey" />
+        <corners android:radius="2dip" />
+    </shape>
+
+</inset><!-- From: file:/Users/ariviere/Documents/Android/OpeneSportNew/openeSport/src/main/res/drawable/drawer_layout_border.xml -->
